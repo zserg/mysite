@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MyNotes</title>
+  </head>
+
+  <body>
+     <style>
+       @media only screen and (max-device-width:320px) {
+         
+         label {
+           font-size: 50px;
+           }
+         input[type=text], 
+         input[type=url], 
+         input[type=email], 
+         input[type=password], 
+         input[type=tel] {
+             -webkit-appearance: none; -moz-appearance: none;
+             display: block;
+             margin: 10px;
+             width: 100%; height: 100px;
+             line-height: 40px; 
+             font-size: 80px;
+             border: 1px solid #bbb;
+            }
+         input[type=submit] {
+             -webkit-appearance: none; -moz-appearance: none;
+             display: block;
+             margin: 10px;
+             width: 100%; height: 100px;
+             line-height: 40px; 
+             font-size: 80px;
+             border: 1px solid #bbb;
+            }
+          }   
+     </style>
+    
+    {% if form.errors %}
+         <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">
+         {% csrf_token %}
+         {{ form.username.label_tag }}
+           <br>
+            {{ form.username }}
+           <br>
+            {{ form.password.label_tag }}
+           <br>
+            {{ form.password }}
+           <br>
+
+         <input type="submit" value="login" />
+         <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+ </body>
+ </html>
+
