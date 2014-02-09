@@ -4,6 +4,7 @@ from notes import views
 
 urlpatterns = patterns('notes.views',
         (r'^(?P<file_name>.+\.txt)$', 'post'), 
+        (r'^new$','newnote'),
         (r"", "main"),
                       )
 urlpatterns += patterns('',

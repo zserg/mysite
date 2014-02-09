@@ -4,12 +4,15 @@ from django.shortcuts import render, render_to_response
 
 import markdown                                                                 
 import notes.static as s
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 import os
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-
+from django import forms
+from django.db import models
+from django.forms import ModelForm, Textarea
+from datetime import datetime
 
 num_of_preview_lines = 10
 
@@ -89,3 +92,31 @@ def post(request, file_name='index'):
       result = s.PAGE_TEMPLATE % markdown.markdown(f.read().decode('utf-8'))
       f.close()
       return HttpResponse(result)
+
+
+
+class PostNoteForm(forms.Form):
+     subject = forms.CharField(required=False,max_length=100, 
+                               initial=datetime.now().strftime('%Y-%m-%d_%H-%M-%S'))
+     body    = forms.CharField(widget=forms.Textarea(attrs={'rows':"2"}))
+
+
+def newnote(request):
+     if request.method == 'POST': # If the form has been submitted...
+         form = PostNoteForm(request.POST) # A form bound to the POST data
+         if form.is_valid(): # All validation rules pass
+             f_name = form.cleaned_data['subject']
+             f=open(s.NOTES_PATH+f_name+".txt", 'w')
+             f.write(form.cleaned_data['body'])
+             f.close()
+              
+              # Process the data in form.cleaned_data
+              # ...
+             return HttpResponseRedirect('/notes/') # Redirect after POS
+     else:
+         form = PostNoteForm() # An unbound form
+
+     return render(request, 'notes/newnote.html', {
+                'form': form,
+            })
+
