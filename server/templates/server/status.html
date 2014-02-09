@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>zserg.net status</title>
+  </head>
+
+  <body>
+     <style>
+
+       #fs_size {font-size: 11px;
+                 font-family:Consolas,Monaco,Lucida Console,Liberation Mono,
+                             DejaVu Sans Mono,Bitstream Vera Sans Mono,
+                             Courier New, monospace;
+       }
+       pre {display: inline}
+            
+     </style>
+     <div id="fs_size">
+       {% for line in status %}
+         <pre>{{ line.0 }}</pre>        <progress value="{{line.1}}" max="100"></progress><br>
+       {% endfor %}
+      </div>
+  </body>
+</html>
+
