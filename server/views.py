@@ -7,7 +7,7 @@ import re
 # Create y;our views here.
 @xframe_options_exempt
 def status(request):
-    p1 = Popen(["di","-I","rootfs", "-f mfp"], stdout=PIPE)
+    p1 = Popen(["di","-I","rootfs", "-f mvp"], stdout=PIPE)
     di_status = p1.communicate()[0]
     out_list = di_status.splitlines()
     stat_lines = []
@@ -21,13 +21,13 @@ def status(request):
 @xframe_options_exempt
 def status_by_name(request,server_name):
     if server_name == 'zserg.net':
-       cmd =["di","-I","rootfs", "-f mfp"] 
+       cmd =["di","-I","rootfs", "-f mvp"] 
     elif server_name == 's115':
        cmd =["cat","/home/zserg/s115_df_stat.txt"] 
     elif server_name == 'zserver':
        cmd =["cat","/home/zserg/zserver_df_stat.txt"] 
     else:
-       cmd =["di","-I","rootfs", "-f mfp"] 
+       cmd =["di","-I","rootfs", "-f mvp"] 
 
     
     p1 = Popen(cmd, stdout=PIPE)

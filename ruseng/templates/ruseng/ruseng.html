@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RusEng</title>
+  </head>
+
+  <body>
+     <style>
+       p {margin:0}
+       .timecode 
+       {
+           color: #bdbdbd;
+          }
+       .text1
+       {
+           color: #084B8A;
+          }
+            
+     </style>
+     <div>
+       {{file_name}}
+       {% for line in rus %}
+           {{line|safe}}
+       {% endfor %}
+      </div>
+      <a onclick='help_click(help1,"{{eng|safe}}")'>Show me the english version!</a> <div id="help1"></div>
+      <script type="text/javascript">
+         function help_click(div,txt) 
+           { if (div.innerHTML == "") div.innerHTML = "<br/>   " + txt; else div.innerHTML = ""; }
+      </script>
+  </body>
+</html>
